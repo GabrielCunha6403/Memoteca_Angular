@@ -11,7 +11,13 @@
       formControlName="conteudo"
       placeholder="Digite um pensamento"
     />
-    <div class="mensagem__erro" *ngIf="formulario.get('conteudo')?.errors && formulario.get('conteudo')?.touched">
+    <div
+      class="mensagem__erro"
+      *ngIf="
+        formulario.get('conteudo')?.errors &&
+        formulario.get('conteudo')?.touched
+      "
+    >
       Pensamento é obrigatório!
     </div>
     <label for="autoria">Autoria ou fonte</label>
@@ -33,6 +39,12 @@
       *ngIf="formulario.get('autoria')?.errors?.['minlength'] && formulario.get('autoria')?.touched"
     >
       Autoria deve ter no mínimo 3 caracteres!
+    </div>
+    <div
+      class="mensagem__erro"
+    *ngIf="formulario.get('autoria')?.errors?.['minusculo']"
+     >
+      Autoria deve conter somento letras minúsculas!
     </div>
     <label for="modelo">Selecione o modelo do card:</label>
     <div class="container-radio">
@@ -104,7 +116,13 @@
       </div>
     </div>
     <div class="acoes">
-      <button (click)="criarPensamento()" class="botao">Salvar</button>
+      <button
+        (click)="criarPensamento()"
+        [disabled]="!formulario.valid"
+        [ngClass]="habilitarBotao()"
+      >
+        Salvar
+      </button>
       <button (click)="cancelar()" class="botao">Cancelar</button>
     </div>
   </form>
